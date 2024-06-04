@@ -6,7 +6,7 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 16:58:05 by akulikov          #+#    #+#             */
-/*   Updated: 2024/06/01 13:54:13 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/04 12:48:33 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,6 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include "../MLX42/include/MLX42/MLX42.h"
-
-typedef struct mlx
-{
-	void*		window;
-	void*		context;
-	int32_t		width;
-	int32_t		height;
-	double		delta_time;
-}	t_mlx;
 
 typedef struct s_tile
 {
@@ -49,9 +40,18 @@ typedef struct s_map
 	t_tile		**tiles;
 }	t_map;
 
+typedef struct s_assets {
+    mlx_image_t *player;
+    mlx_image_t *chest;
+	mlx_image_t	*exit;
+	mlx_image_t	*wall;
+	mlx_image_t	*floor;
+} t_assets;
+
 
 int		load_map(const char *filename, t_map **map);
 void	check_map(t_map **map);
+int launch_game(t_map **map);
 
 
 #endif

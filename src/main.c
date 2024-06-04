@@ -6,7 +6,7 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:24:39 by akulikov          #+#    #+#             */
-/*   Updated: 2024/05/31 22:39:20 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/03 22:08:51 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ int	main(int argc, char *argv[])
     else
         printf("Wall is broken\n");
     
-    
+    launch_game(&map);
     // for (int i = 0; i < map->height; i++) {
         // free(map->tiles[i]);
     // }
     // free(map->tiles);
     // free(map);
 
-    return 0;
+    return (0);
 }
 
