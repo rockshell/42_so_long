@@ -6,7 +6,7 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:24:39 by akulikov          #+#    #+#             */
-/*   Updated: 2024/06/03 22:08:51 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/04 17:41:04 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,40 @@ int	main(int argc, char *argv[])
     check_map(&map);
     printf("There are %i collectibles, %i exits and %i start positions\n", map->count_collectibles, map->count_exits, map->count_players);
 
+    if (map->count_exits != 1)
+    {
+        printf("Wrong amount of exits\n");
+        return(1);
+    }
+    if (map->count_collectibles <= 0)
+    {
+        printf("Wrong amount of collectibles\n");
+        return(1);
+    }
+
+    if (map->count_players != 1)
+    {
+        printf("Wrong amount of players\n");
+        return(1);
+    }
+    
+    
+    
     if (map->tiles[map->exit.x][map->exit.y].pass_check)
         printf("Exit is within the reach\n");
     else
+    {
         printf("Exit is unreacheble\n");
+        return(1);
+    }
 
     if (map->wall_integrity)
         printf("Wall is in place\n");
     else
+    {
         printf("Wall is broken\n");
+        return (1);
+    }
     
     launch_game(&map);
     // for (int i = 0; i < map->height; i++) {

@@ -6,7 +6,7 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:28:11 by akulikov          #+#    #+#             */
-/*   Updated: 2024/05/31 22:38:32 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/06 15:41:18 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void	parse_row(t_map **map, const char *line, int row_num)
 			(*map)->tiles[i][row_num].passable = false;
 		if (line[i] == 'P')
 			{
-				(*map)->start.x = i;
-				(*map)->start.y = row_num;
+				(*map)->player.x = i;
+				(*map)->player.y = row_num;
 			}
 		if (line[i] == 'E')
 			{

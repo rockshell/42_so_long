@@ -6,7 +6,7 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:21:22 by arch              #+#    #+#             */
-/*   Updated: 2024/05/31 22:38:13 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/06 15:41:16 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ void check_map(t_map **map)
     count_specific_tiles(map, 'C');
     count_specific_tiles(map, 'P');
     count_specific_tiles(map, 'E');
-    flood_fill(map, (*map)->start.x, (*map)->start.y);
+    flood_fill(map, (*map)->player.x, (*map)->player.y);
     wall_is_valid(map);
 }

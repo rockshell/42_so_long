@@ -6,7 +6,7 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 16:58:05 by akulikov          #+#    #+#             */
-/*   Updated: 2024/06/04 12:48:33 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/06 15:46:04 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ typedef struct s_map
 	int			count_exits;
 	int			count_players;
 	bool		wall_integrity;
-	t_tile		start;
+	t_tile		player;
 	t_tile		exit;
+	// t_tile		player;
 	t_tile		**tiles;
 }	t_map;
 
@@ -52,6 +53,7 @@ typedef struct s_assets {
 int		load_map(const char *filename, t_map **map);
 void	check_map(t_map **map);
 int launch_game(t_map **map);
+void my_keyhook(mlx_key_data_t keydata, void *window, t_map **map);
 
 
 #endif
