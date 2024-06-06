@@ -6,24 +6,45 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:05:16 by arch              #+#    #+#             */
-/*   Updated: 2024/06/06 15:45:37 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/06 23:37:45 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
 void load_assets(mlx_t *mlx, t_assets *assets) {
-    assets->player = mlx_texture_to_image(mlx, mlx_load_png("assets/player.png"));
-    assets->wall = mlx_texture_to_image(mlx, mlx_load_png("assets/wall.png"));
-    assets->chest = mlx_texture_to_image(mlx, mlx_load_png("assets/chest.png"));
-    assets->exit = mlx_texture_to_image(mlx, mlx_load_png("assets/exit.png"));
-    assets->floor = mlx_texture_to_image(mlx, mlx_load_png("assets/floor.png"));
+    // assets->player = mlx_texture_to_image(mlx, mlx_load_png("assets/player.png"));
+    // assets->wall = mlx_texture_to_image(mlx, mlx_load_png("assets/wall.png"));
+    // assets->chest = mlx_texture_to_image(mlx, mlx_load_png("assets/chest.png"));
+    // assets->exit = mlx_texture_to_image(mlx, mlx_load_png("assets/exit.png"));
+    // assets->floor = mlx_texture_to_image(mlx, mlx_load_png("assets/floor.png"));
+    assets->player_texture = mlx_load_png("assets/player.png");
+    assets->wall_texture = mlx_load_png("assets/wall.png");
+    assets->chest_texture = mlx_load_png("assets/chest.png");
+    assets->exit_texture = mlx_load_png("assets/exit.png");
+    assets->floor_texture = mlx_load_png("assets/floor.png");
+    assets->player = mlx_texture_to_image(mlx, assets->player_texture);
+    assets->wall = mlx_texture_to_image(mlx, assets->wall_texture);
+    assets->chest = mlx_texture_to_image(mlx, assets->chest_texture);
+    assets->exit = mlx_texture_to_image(mlx, assets->exit_texture);
+    assets->floor = mlx_texture_to_image(mlx, assets->floor_texture);
+    mlx_delete_texture(assets->player_texture);
+    mlx_delete_texture(assets->wall_texture);
+    mlx_delete_texture(assets->chest_texture);
+    mlx_delete_texture(assets->exit_texture);
+    mlx_delete_texture(assets->floor_texture);
+
 }
 
-void    render_map(t_map **map, t_assets assets, mlx_t *mlx)
+static void    render_map(void *param)
 {
+    // sleep(3);
     int x;
     int y;
+    t_params *params = (t_params *)param;
+    t_map **map = params->map;
+    mlx_t *window = params->window;
+    t_assets assets = params->assets;
     
     y = 0;
     while (y < (*map)->height)
@@ -31,19 +52,17 @@ void    render_map(t_map **map, t_assets assets, mlx_t *mlx)
         x = 0;
         while (x < (*map)->width)
         {
-            mlx_image_to_window(mlx, assets.floor, x*56, y*56);
+            mlx_image_to_window(window, assets.floor, x*56, y*56);
             if ((*map)->tiles[x][y].type == '1')
-                mlx_image_to_window(mlx, assets.wall, x*56, y*56);
+                mlx_image_to_window(window, assets.wall, x*56, y*56);
             if ((*map)->tiles[x][y].type == 'C')
-                mlx_image_to_window(mlx, assets.chest, x*56, y*56);
+                mlx_image_to_window(window, assets.chest, x*56, y*56);
             if ((*map)->tiles[x][y].type == 'E')
-                mlx_image_to_window(mlx, assets.exit, x*56, y*56);
+                mlx_image_to_window(window, assets.exit, x*56, y*56);
             if ((*map)->tiles[x][y].type == 'P')
-                mlx_image_to_window(mlx, assets.player, x*56, y*56);
-            // printf("X now is %i\n", x);
+                mlx_image_to_window(window, assets.player, x*56, y*56);
             x++;
         }
-        // printf("Y now is %i\n", y);
         y++;
     }
     
@@ -57,30 +76,20 @@ mlx_t *init_mlx(t_map **map, t_assets *assets)
     return (mlx);
 }
 
-// void my_keyhook(mlx_key_data_t keydata, void *window)
-// {
-// 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-// 		printf("Hello \n");
-// 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-// 		printf("World\n");
-// 	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-// 		printf("!\n");
-//     if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-// 		printf("!\n");
-//     if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-//         mlx_close_window(window);
-    
-// }
-    
 int launch_game(t_map **map)
 {
     t_assets    assets;
+    t_params    params;
 
+    // printf("hey");
     mlx_t* mlx = init_mlx(map, &assets);
-    render_map(map, assets, mlx);
+    render_map(&params);
+    params.window = mlx;
+    params.map = map;
+    params.assets = assets;
     
-  
-    mlx_key_hook(mlx, &my_keyhook, map);
+    mlx_key_hook(mlx, my_keyhook, &params);
+    // mlx_loop_hook(mlx, render_map, &params);
     mlx_loop(mlx);
     mlx_terminate(mlx);
     return (0);
