@@ -6,12 +6,11 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:28:11 by akulikov          #+#    #+#             */
-/*   Updated: 2024/06/06 15:41:18 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/07 17:14:16 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-#include "../include/get_next_line.h"
 
 int	check_allowed_symbols(const char *line)
 {

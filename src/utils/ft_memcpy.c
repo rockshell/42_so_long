@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akulikov <akulikov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 19:36:57 by akulikov          #+#    #+#             */
-/*   Updated: 2024/05/18 15:41:04 by akulikov         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:17:36 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
-#include "../../include/get_next_line.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {

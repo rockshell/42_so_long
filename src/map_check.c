@@ -6,12 +6,11 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:21:22 by arch              #+#    #+#             */
-/*   Updated: 2024/06/06 15:41:16 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/07 17:14:09 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-#include "../include/get_next_line.h"
 
 void    count_specific_tiles(t_map **map, char c)
 {

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akulikov <akulikov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 13:44:32 by akulikov          #+#    #+#             */
-/*   Updated: 2024/05/18 15:38:09 by akulikov         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:17:31 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
-#include "../../include/get_next_line.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

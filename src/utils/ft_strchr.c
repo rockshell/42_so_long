@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akulikov <akulikov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 19:21:52 by akulikov          #+#    #+#             */
-/*   Updated: 2024/05/18 15:37:57 by akulikov         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:17:35 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
-#include "../../include/get_next_line.h"
 
 char	*ft_strchr(const char *s, int c)
 {

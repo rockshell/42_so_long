@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akulikov <akulikov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:54:24 by akulikov          #+#    #+#             */
-/*   Updated: 2024/05/18 15:37:31 by akulikov         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:51:28 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
-#include "../../include/get_next_line.h"
 
 char	*join_and_free(char *main_buffer, char *last_read_buffer)
 {

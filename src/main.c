@@ -6,12 +6,11 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:24:39 by akulikov          #+#    #+#             */
-/*   Updated: 2024/06/04 17:41:04 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/07 17:12:30 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-#include "../include/get_next_line.h"
 
 void print_map(t_map *map)
 {
@@ -82,7 +81,8 @@ int	main(int argc, char *argv[])
         printf("Wall is broken\n");
         return (1);
     }
-    
+    map->count_moves = 0;
+    map->exit_available = false;
     launch_game(&map);
     // for (int i = 0; i < map->height; i++) {
         // free(map->tiles[i]);

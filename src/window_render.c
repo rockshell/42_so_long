@@ -6,7 +6,7 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:05:16 by arch              #+#    #+#             */
-/*   Updated: 2024/06/06 23:37:45 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/07 17:49:32 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ void load_assets(mlx_t *mlx, t_assets *assets) {
 
 }
 
-static void    render_map(void *param)
+static void    render_map(t_map **map, mlx_t *window, t_assets *assets)
 {
     // sleep(3);
     int x;
     int y;
-    t_params *params = (t_params *)param;
-    t_map **map = params->map;
-    mlx_t *window = params->window;
-    t_assets assets = params->assets;
+    // t_params *params = (t_params *)param;
+    // t_map **map = params->map;
+    // mlx_t *window = params->window;
+    // t_assets assets = params->assets;
     
     y = 0;
     while (y < (*map)->height)
@@ -52,15 +52,18 @@ static void    render_map(void *param)
         x = 0;
         while (x < (*map)->width)
         {
-            mlx_image_to_window(window, assets.floor, x*56, y*56);
+            mlx_image_to_window(window, (*assets).floor, x*56, y*56);
             if ((*map)->tiles[x][y].type == '1')
-                mlx_image_to_window(window, assets.wall, x*56, y*56);
+                mlx_image_to_window(window, (*assets).wall, x*56, y*56);
             if ((*map)->tiles[x][y].type == 'C')
-                mlx_image_to_window(window, assets.chest, x*56, y*56);
+                mlx_image_to_window(window, (*assets).chest, x*56, y*56);
             if ((*map)->tiles[x][y].type == 'E')
-                mlx_image_to_window(window, assets.exit, x*56, y*56);
+            {
+                mlx_image_to_window(window, (*assets).exit, x*56, y*56);
+                // (*map)->tiles[x][y].is_exit = true;
+            }
             if ((*map)->tiles[x][y].type == 'P')
-                mlx_image_to_window(window, assets.player, x*56, y*56);
+                mlx_image_to_window(window, (*assets).player, x*56, y*56);
             x++;
         }
         y++;
@@ -68,11 +71,11 @@ static void    render_map(void *param)
     
 }
 
-mlx_t *init_mlx(t_map **map, t_assets *assets)
+// mlx_t *init_mlx(t_map **map, t_assets *assets)
+mlx_t *init_mlx(t_map **map)
 {
     mlx_set_setting(MLX_MAXIMIZED, true);
     mlx_t* mlx = mlx_init((*map)->width*56, (*map)->height*56, "So long", false);
-    load_assets(mlx, assets);
     return (mlx);
 }
 
@@ -82,8 +85,11 @@ int launch_game(t_map **map)
     t_params    params;
 
     // printf("hey");
-    mlx_t* mlx = init_mlx(map, &assets);
-    render_map(&params);
+    // mlx_t* mlx = init_mlx(map, &assets);
+    // (*map)->count_moves = 0;
+    mlx_t* mlx = init_mlx(map);
+    load_assets(mlx, &assets);
+    render_map(map, mlx, &assets);
     params.window = mlx;
     params.map = map;
     params.assets = assets;
