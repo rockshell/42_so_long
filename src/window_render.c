@@ -6,7 +6,7 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:05:16 by arch              #+#    #+#             */
-/*   Updated: 2024/06/08 11:15:13 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/08 18:35:35 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void load_assets(mlx_t *mlx, t_assets *assets) {
     assets->player = mlx_texture_to_image(mlx, assets->player_texture);
     assets->wall = mlx_texture_to_image(mlx, assets->wall_texture);
     assets->chest = mlx_texture_to_image(mlx, assets->chest_texture);
-    assets->exit = mlx_texture_to_image(mlx, assets->exit_texture);
+    assets->e = mlx_texture_to_image(mlx, assets->exit_texture);
     assets->floor = mlx_texture_to_image(mlx, assets->floor_texture);
     mlx_delete_texture(assets->player_texture);
     mlx_delete_texture(assets->wall_texture);
@@ -41,15 +41,15 @@ static void    render_map(t_map **map, mlx_t *window, t_assets *assets)
         x = 0;
         while (x < (*map)->width)
         {
-            mlx_image_to_window(window, (*assets).floor, x*56, y*56);
+            mlx_image_to_window(window, (*assets).floor, x * 56, y * 56);
             if ((*map)->tiles[x][y].type == '1')
-                mlx_image_to_window(window, (*assets).wall, x*56, y*56);
+                mlx_image_to_window(window, (*assets).wall, x * 56, y * 56);
             if ((*map)->tiles[x][y].type == 'C')
-                mlx_image_to_window(window, (*assets).chest, x*56, y*56);
+                mlx_image_to_window(window, (*assets).chest, x * 56, y * 56);
             if ((*map)->tiles[x][y].type == 'E')
-                mlx_image_to_window(window, (*assets).exit, x*56, y*56);
+                mlx_image_to_window(window, (*assets).e, x * 56, y * 56);
             if ((*map)->tiles[x][y].type == 'P')
-                mlx_image_to_window(window, (*assets).player, x*56, y*56);
+                mlx_image_to_window(window, (*assets).player, x * 56, y * 56);
             x++;
         }
         y++;
@@ -71,7 +71,7 @@ int launch_game(t_map **map)
     mlx_t* mlx = init_mlx(map);
     load_assets(mlx, &assets);
     render_map(map, mlx, &assets);
-    params.window = mlx;
+    (*map)->window = mlx;
     params.map = map;
     params.assets = assets;
     mlx_key_hook(mlx, my_keyhook, &params);

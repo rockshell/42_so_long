@@ -6,7 +6,7 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:54:24 by akulikov          #+#    #+#             */
-/*   Updated: 2024/06/07 16:51:28 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/08 17:27:04 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ char	*get_next_line(int fd)
 	buffer = read_from_file(fd, buffer);
 	if (!buffer)
 	{
+		free(buffer);
 		line = NULL;
 		return (line);
 	}

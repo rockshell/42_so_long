@@ -6,7 +6,7 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:28:11 by akulikov          #+#    #+#             */
-/*   Updated: 2024/06/07 17:14:16 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/08 17:15:55 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	check_map_initial(const char *filename)
 	{
 		if (check_allowed_symbols(row) < 0)
 			break;
+		free(row);
 		row = get_next_line(fd);
 		if (row && (ft_strlen(row) != row_length) && row[row_length] != '\0')
 			break;
@@ -50,7 +51,11 @@ int	check_map_initial(const char *filename)
 	}
 	close(fd);
 	if (row)
+	{
+		free(row);
 		return(-1);
+	}
+	free(row);
 	return(0);
 }
 
@@ -68,6 +73,7 @@ void	alloc_map_memory(t_map **map, const char *filename)
 	while (row)
 	{
 		(*map)->height += 1;
+		free(row);
 		row = get_next_line(fd);
 	}
 	close(fd);
@@ -126,6 +132,7 @@ int	load_map(const char *filename, t_map **map)
 	while (row)
 	{
 		parse_row(map, row, row_num);
+		free(row);
 		row = get_next_line(fd);
 		row_num += 1;
 	}
