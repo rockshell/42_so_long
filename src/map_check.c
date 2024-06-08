@@ -109,7 +109,7 @@ int	check_map(t_map **map)
 	count_specific_tiles(map, 'P');
 	count_specific_tiles(map, 'E');
 	wall_is_valid(map);
-	flood_fill(map, (*map)->player.x, (*map)->player.y);
+	flood_fill(map, (*map)->p.x, (*map)->p.y);
 	check_chests(map);
 	if (run_checks(map) != 0)
 		return (-1);

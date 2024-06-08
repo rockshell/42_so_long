@@ -6,50 +6,47 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:51:48 by arch              #+#    #+#             */
-/*   Updated: 2024/06/08 18:39:21 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/08 18:47:10 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void    gather_chest(t_params *params, t_assets a, int x, int y)
+void	gather_chest(t_params *params, t_assets a, int x, int y)
 {
 	t_map	**m;
 	mlx_t	*w;
 
 	m = params->map;
 	w = (*m)->window;
-	
-	mlx_image_to_window(w, a.floor, x*56, y*56);
-	(*m)->tiles[(*m)->player.x][(*m)->player.y].type = '0';
+	mlx_image_to_window(w, a.floor, x * 56, y * 56);
+	(*m)->tiles[(*m)->p.x][(*m)->p.y].type = '0';
 	if ((*m)->count_collectibles > 0)
 		(*m)->count_collectibles -= 1;
 	if ((*m)->count_collectibles == 0)
 		(*m)->exit_available = true;
 }
 
-void    move_player(t_params *params, t_assets a, int x, int y)
+void	move_player(t_params *params, t_assets a, int x, int y)
 {
 	t_map	**m;
 	mlx_t	*w;
-	// t_tile	player;
 
 	m = params->map;
 	w = (*m)->window;
-	// player = (*m)->player;
-	if (!(*m)->tiles[(*m)->player.x+x][(*m)->player.y+y].passable)
+	if (!(*m)->tiles[(*m)->p.x + x][(*m)->p.y + y].passable)
 		return ;
-	mlx_image_to_window(w, a.floor, ((*m)->player.x)*56, ((*m)->player.y)*56);
-	if ((*m)->tiles[(*m)->player.x][(*m)->player.y].type == 'E')
-		mlx_image_to_window(w, a.e, ((*m)->player.x)*56, ((*m)->player.y)*56);
-	(*m)->player.x += x;
-	(*m)->player.y += y;
-	if ((*m)->tiles[(*m)->player.x][(*m)->player.y].type == 'C')
-		gather_chest(params, a, (*m)->player.x, (*m)->player.y);
-	mlx_image_to_window(w, a.player, ((*m)->player.x)*56, ((*m)->player.y)*56);
+	mlx_image_to_window(w, a.floor, ((*m)->p.x) * 56, ((*m)->p.y) * 56);
+	if ((*m)->tiles[(*m)->p.x][(*m)->p.y].type == 'E')
+		mlx_image_to_window(w, a.e, ((*m)->p.x) * 56, ((*m)->p.y) * 56);
+	(*m)->p.x += x;
+	(*m)->p.y += y;
+	if ((*m)->tiles[(*m)->p.x][(*m)->p.y].type == 'C')
+		gather_chest(params, a, (*m)->p.x, (*m)->p.y);
+	mlx_image_to_window(w, a.player, ((*m)->p.x) * 56, ((*m)->p.y) * 56);
 	(*m)->count_moves += 1;
 	ft_printf("%i\n", (*m)->count_moves);
-	if ((*m)->tiles[(*m)->player.x][(*m)->player.y].type == 'E')
+	if ((*m)->tiles[(*m)->p.x][(*m)->p.y].type == 'E')
 	{
 		if ((*m)->exit_available)
 			mlx_close_window(w);

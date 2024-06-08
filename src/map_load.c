@@ -6,7 +6,7 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:28:11 by akulikov          #+#    #+#             */
-/*   Updated: 2024/06/08 17:15:55 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/08 18:57:50 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,53 @@
 
 int	check_allowed_symbols(const char *line)
 {
-	const char *allowed_symbols;
+	char	*allowed_symbols;
 	size_t	i;
-	
+
 	allowed_symbols = "01CEP\n\0";
 	i = 0;
 	while (i < ft_strlen(line))
 	{
 		if (!ft_strchr(allowed_symbols, line[i]))
-			return(-1);
+			return (-1);
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
 int	check_map_initial(const char *filename)
 {
-	int	fd;
-	size_t	row_length;
+	int		fd;
 	char	*row;
+	size_t	row_length;
 
 	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return(-1);
 	row = get_next_line(fd);
 	row_length = ft_strlen(row);
 	while (row)
 	{
 		if (check_allowed_symbols(row) < 0)
-			break;
+			break ;
 		free(row);
 		row = get_next_line(fd);
 		if (row && (ft_strlen(row) != row_length) && row[row_length] != '\0')
-			break;
+			break ;
 		row_length = ft_strlen(row);
 	}
 	close(fd);
 	if (row)
 	{
 		free(row);
-		return(-1);
+		return (-1);
 	}
 	free(row);
-	return(0);
+	return (0);
 }
 
 void	alloc_map_memory(t_map **map, const char *filename)
 {
-	int	fd;
-	int	i;
+	int		fd;
+	int		i;
 	char	*row;
 
 	fd = open(filename, O_RDONLY);
@@ -102,31 +100,31 @@ void	parse_row(t_map **map, const char *line, int row_num)
 		if (line[i] == '1')
 			(*map)->tiles[i][row_num].passable = false;
 		if (line[i] == 'P')
-			{
-				(*map)->player.x = i;
-				(*map)->player.y = row_num;
-			}
+		{
+			(*map)->p.x = i;
+			(*map)->p.y = row_num;
+		}
 		if (line[i] == 'E')
-			{
-				(*map)->exit.x = i;
-				(*map)->exit.y = row_num;
-			}
+		{
+			(*map)->exit.x = i;
+			(*map)->exit.y = row_num;
+		}
 		i++;
 	}
 }
 
 int	load_map(const char *filename, t_map **map)
 {
-	int	fd;
-	int	row_num;
+	int		fd;
+	int		row_num;
 	char	*row;
 
 	if (check_map_initial(filename) < 0)
-		return(-1);
+		return (-1);
 	alloc_map_memory(map, filename);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return(-1);
+		return (-1);
 	row = get_next_line(fd);
 	row_num = 0;
 	while (row)
@@ -140,5 +138,3 @@ int	load_map(const char *filename, t_map **map)
 	free(row);
 	return (0);
 }
-
-
