@@ -6,18 +6,13 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:05:16 by arch              #+#    #+#             */
-/*   Updated: 2024/06/07 17:49:32 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/08 11:15:13 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
 void load_assets(mlx_t *mlx, t_assets *assets) {
-    // assets->player = mlx_texture_to_image(mlx, mlx_load_png("assets/player.png"));
-    // assets->wall = mlx_texture_to_image(mlx, mlx_load_png("assets/wall.png"));
-    // assets->chest = mlx_texture_to_image(mlx, mlx_load_png("assets/chest.png"));
-    // assets->exit = mlx_texture_to_image(mlx, mlx_load_png("assets/exit.png"));
-    // assets->floor = mlx_texture_to_image(mlx, mlx_load_png("assets/floor.png"));
     assets->player_texture = mlx_load_png("assets/player.png");
     assets->wall_texture = mlx_load_png("assets/wall.png");
     assets->chest_texture = mlx_load_png("assets/chest.png");
@@ -33,18 +28,12 @@ void load_assets(mlx_t *mlx, t_assets *assets) {
     mlx_delete_texture(assets->chest_texture);
     mlx_delete_texture(assets->exit_texture);
     mlx_delete_texture(assets->floor_texture);
-
 }
 
 static void    render_map(t_map **map, mlx_t *window, t_assets *assets)
 {
-    // sleep(3);
     int x;
     int y;
-    // t_params *params = (t_params *)param;
-    // t_map **map = params->map;
-    // mlx_t *window = params->window;
-    // t_assets assets = params->assets;
     
     y = 0;
     while (y < (*map)->height)
@@ -58,20 +47,15 @@ static void    render_map(t_map **map, mlx_t *window, t_assets *assets)
             if ((*map)->tiles[x][y].type == 'C')
                 mlx_image_to_window(window, (*assets).chest, x*56, y*56);
             if ((*map)->tiles[x][y].type == 'E')
-            {
                 mlx_image_to_window(window, (*assets).exit, x*56, y*56);
-                // (*map)->tiles[x][y].is_exit = true;
-            }
             if ((*map)->tiles[x][y].type == 'P')
                 mlx_image_to_window(window, (*assets).player, x*56, y*56);
             x++;
         }
         y++;
     }
-    
 }
 
-// mlx_t *init_mlx(t_map **map, t_assets *assets)
 mlx_t *init_mlx(t_map **map)
 {
     mlx_set_setting(MLX_MAXIMIZED, true);
@@ -84,18 +68,13 @@ int launch_game(t_map **map)
     t_assets    assets;
     t_params    params;
 
-    // printf("hey");
-    // mlx_t* mlx = init_mlx(map, &assets);
-    // (*map)->count_moves = 0;
     mlx_t* mlx = init_mlx(map);
     load_assets(mlx, &assets);
     render_map(map, mlx, &assets);
     params.window = mlx;
     params.map = map;
     params.assets = assets;
-    
     mlx_key_hook(mlx, my_keyhook, &params);
-    // mlx_loop_hook(mlx, render_map, &params);
     mlx_loop(mlx);
     mlx_terminate(mlx);
     return (0);

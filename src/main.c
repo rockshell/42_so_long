@@ -6,22 +6,11 @@
 /*   By: arch <arch@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:24:39 by akulikov          #+#    #+#             */
-/*   Updated: 2024/06/07 17:12:30 by arch             ###   ########.fr       */
+/*   Updated: 2024/06/08 12:48:19 by arch             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-
-void print_map(t_map *map)
-{
-    for (int y = 0; y < map->height; y++)
-    {
-        for (int x = 0; x < map->width; x++)
-            printf("%c", map->tiles[x][y].type);
-        printf("\n");
-    }
-    
-}
 
 int	main(int argc, char *argv[])
 {
@@ -29,67 +18,24 @@ int	main(int argc, char *argv[])
 
     if (argc != 2)
     {
-        printf("Usage: %s <map file>\n", argv[0]);
+        ft_printf("Usage: %s <map file>\n", argv[0]);
         return 1;
     }
+        // handle_error(ERR_INVALID_ARGUMENT, "Usage: ./so_long <map file>");
 
     if (load_map(argv[1], &map) == 0)
-    {
-        printf("Map loaded successfully!\n");
-        print_map(map);
-    }
+        ft_printf("Map loaded successfully!\n");
     else
     {
-        printf("Failed to load map.\n");
+        ft_printf("Failed to load map.\n");
         return (1);
     }
     
-    check_map(&map);
-    printf("There are %i collectibles, %i exits and %i start positions\n", map->count_collectibles, map->count_exits, map->count_players);
-
-    if (map->count_exits != 1)
-    {
-        printf("Wrong amount of exits\n");
-        return(1);
-    }
-    if (map->count_collectibles <= 0)
-    {
-        printf("Wrong amount of collectibles\n");
-        return(1);
-    }
-
-    if (map->count_players != 1)
-    {
-        printf("Wrong amount of players\n");
-        return(1);
-    }
-    
-    
-    
-    if (map->tiles[map->exit.x][map->exit.y].pass_check)
-        printf("Exit is within the reach\n");
-    else
-    {
-        printf("Exit is unreacheble\n");
-        return(1);
-    }
-
-    if (map->wall_integrity)
-        printf("Wall is in place\n");
-    else
-    {
-        printf("Wall is broken\n");
+    if (check_map(&map) != 0)
         return (1);
-    }
     map->count_moves = 0;
     map->exit_available = false;
     launch_game(&map);
-    // for (int i = 0; i < map->height; i++) {
-        // free(map->tiles[i]);
-    // }
-    // free(map->tiles);
-    // free(map);
-
     return (0);
 }
 
